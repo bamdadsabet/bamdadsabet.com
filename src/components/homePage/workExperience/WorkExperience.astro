@@ -1,0 +1,202 @@
+---
+// #FIXME all paths should be refactore ever where
+import JobExperienceCard from "./JobExperienceCard.astro";
+import SupnexLogo from "@images/workExperience/supnex.jpeg";
+import amadehlazizLogo from "@images/workExperience/amadehlaziz.png";
+import yektanet from "@images/workExperience/yektanet.png";
+import fiverrLogo from "@images/workExperience/fiverr.png";
+import SectionTitle from "@components/homePage/SectionTitle.astro";
+import ViewMore from "@components/homePage/ViewMore.astro";
+
+// #FIXME
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+
+const experienceContents = [
+  {
+    jobTitle: "Senior Front-End Developer",
+    companyName: "Supnex",
+    companyDescription:
+      "Amadehlaziz is one of the biggest FMCG enterprises in Iran With well-known brands.",
+    duration: "2022-NOW",
+    companyLogo: { src: SupnexLogo, alt: "Supnex" },
+    hexRGBColor: "251, 146, 60",
+    href: "#"
+  },
+  {
+    jobTitle: "Senior Software Developer",
+    companyName: "Amadeh Laziz",
+    companyDescription:
+      "Amadehlaziz is one of the biggest FMCG enterprises in Iran With well-known brands.",
+    duration: "2021-2022",
+    companyLogo: { src: amadehlazizLogo, alt: "Amadeh Laziz" },
+    hexRGBColor: "255, 167, 5",
+    href: "#"
+  },
+  {
+    jobTitle: "Front-End Developer",
+    companyName: "Yektanet",
+    companyDescription:
+      "Yektanet is the biggest digital marketing agency in Iran.",
+    duration: "2020-2021",
+    companyLogo: { src: yektanet, alt: "Yektanet" },
+    hexRGBColor: "251, 146, 60",
+    href: "#"
+  },
+  {
+    jobTitle: "Freelancer",
+    companyName: "Fiverr",
+    companyDescription:
+      "Colossus Elite was an agency that was founded by me and one of my friends.",
+    duration: "2020-2021",
+    companyLogo: { src: fiverrLogo, alt: "Fiverr" },
+    hexRGBColor: "255, 167, 5",
+    href: "#"
+  }
+];
+---
+
+<div id={id} class="section">
+  <SectionTitle title="Work Experience" />
+  <div class="time-line">
+    {
+      experienceContents.map((conetent) => (
+        <JobExperienceCard
+          jobTitle={conetent.jobTitle}
+          companyName={conetent.companyName}
+          companyDescription={conetent.companyDescription}
+          duration={conetent.duration}
+          companyLogo={conetent.companyLogo}
+          hexRGBColor={conetent.hexRGBColor}
+          href="#"
+        />
+      ))
+    }
+  </div>
+  <a class="download-cv-button__container" href="#">
+    <div class="download-cv-button">
+      <span>Download My CV</span>
+    </div>
+  </a>
+  <ViewMore title="View My LinkedIn Profile" href="#" />
+</div>
+
+<style lang="scss">
+  .section {
+    margin: 3rem 0;
+    padding: 0 2rem 3rem 2rem;
+    font-display: flex;
+    justify-content: center;
+    background-color: #f9fafb;
+    @include media("lg", "~md") {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    @include media("md") {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+  .time-line {
+    position: relative;
+    padding: 5rem 0;
+    z-index: 1;
+    width: 100%;
+    &:before {
+      content: "";
+      position: absolute;
+      z-index: -10;
+      height: 100%;
+      width: 2px;
+      margin-right: -1px;
+      left: calc(50% - 1px);
+      top: 0;
+      background: -webkit-linear-gradient(
+        top,
+        transparent 0%,
+        rgba(63, 71, 103, 0.15) 100px,
+        rgba(63, 71, 103, 0.15) calc(100% - 100px),
+        transparent 100%
+      );
+      @include media("md", "~sm") {
+        left: 2.75rem;
+      }
+      @include media("sm") {
+        left: 50%;
+      }
+    }
+  }
+  .download-cv-button,
+  .download-cv-button span {
+    &:before,
+    &:after {
+      position: absolute;
+      content: "";
+      background-color: #fb923c;
+      box-shadow: 0 0 2px #fb923c;
+      transition-duration: 300ms;
+    }
+    &:hover:before {
+      height: 100%;
+    }
+    &:hover:after {
+      width: 100%;
+    }
+  }
+  .download-cv-button {
+    position: absolute;
+    right: calc(50% - 7.8125rem);
+    width: 15.625rem;
+    height: 4.6875rem;
+    cursor: pointer;
+    color: #f59e0b;
+    transition-duration: 300ms;
+    &__container {
+      display: block;
+      margin-bottom: 7rem;
+    }
+    &:before,
+    &:after {
+      right: 0;
+      bottom: 0;
+    }
+    &:before {
+      height: 50%;
+      width: 2px;
+    }
+    &:after {
+      width: 20%;
+      height: 2px;
+    }
+    &:hover:before {
+      height: 100%;
+    }
+    &:hover:after {
+      width: 100%;
+    }
+    span {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      &:before,
+      &:after {
+        left: 0;
+        top: 0;
+      }
+      &:before {
+        width: 2px;
+        height: 50%;
+      }
+      &:after {
+        width: 20%;
+        height: 2px;
+      }
+    }
+  }
+</style>
