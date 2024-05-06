@@ -1,0 +1,16 @@
+$breakpoints: (
+  "xs": (max-width: 475px),
+  "~xs": (min-width: 475px),
+  "sm": (max-width: 640px),
+  "~sm": (min-width: 640px),
+  "md": (max-width: 768px),
+  "~md": (min-width: 768px),
+  "lg": (max-width: 1024px),
+  "~lg": (min-width: 1024px),
+  "xl": (max-width: 1280px),
+  "~xl": (min-width: 1280px),
+  "xxl": (max-width: 1536px),
+  "~xxl": (min-width: 1536px),
+);
+$slate: #1e293b;
+$navbar-bg: #101820ff;
