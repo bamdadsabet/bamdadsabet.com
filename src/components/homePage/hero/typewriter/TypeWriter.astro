@@ -1,0 +1,50 @@
+---
+interface Props {
+  fixedTitle?: string;
+  changingTitles: string[];
+}
+
+const { fixedTitle = "I am", changingTitles } = Astro.props;
+---
+
+<div class="type-writer" data-titles={changingTitles}>
+  <h1>{fixedTitle} <span></span></h1>
+</div>
+
+<style lang="scss">
+  @keyframes blink-cursor {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  .type-writer {
+    text-align: center;
+    margin-bottom: 2rem;
+    h1 {
+      color: #ca8a04;
+      font-size: 1.25rem;
+      display: inline-block;
+      padding: 0;
+      position: relative;
+      &::after {
+        content: "";
+        position: absolute;
+        height: 70%;
+        top: 15%;
+        left: 100%;
+        background-color: #f59e0b;
+        padding: 1.1px;
+        margin-left: 0.25rem;
+        animation: blink-cursor 800ms infinite ease;
+      }
+    }
+  }
+</style>
+
+<script src="./script"></script>
