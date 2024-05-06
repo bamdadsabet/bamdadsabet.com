@@ -1,0 +1,27 @@
+---
+interface Props {
+  title: string
+  href: string
+}
+
+const { title, href } = Astro.props
+---
+
+<a class="view-more" href={href}>{title}</a>
+
+<style>
+  .view-more {
+    margin:auto;
+    margin-top: 4rem;
+    width: fit-content;
+    display: block;
+    color: #0ea5e9;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: #0ea5e9;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: all 0.3s;
+    -decoration-color: #0284c7;
+  }
+</style>
