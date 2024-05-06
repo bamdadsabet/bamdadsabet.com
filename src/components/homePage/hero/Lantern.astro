@@ -1,0 +1,472 @@
+<div class="lantern__handle--hidden">
+  <span class="text-white">
+    View My Work
+    <!-- <IoMdArrowRoundForward size={25} class='inline ml-1 group-hover:rotate-90 duration-300'/> -->
+  </span>
+</div>
+<div class="container">
+  <div class="lantern">
+    <div class="lantern__handle">
+      <span class="text-white">
+        View My Work
+        <!-- <IoMdArrowRoundForward size={25} class='inline ml-1 group-hover:rotate-90 duration-300'/> -->
+      </span>
+    </div>
+    <div class="lantern__inner">
+      <div class="lantern__chain"></div>
+      <div class="lantern__head"></div>
+      <div class="lantern__body">
+        <div class="lantern__spark"></div>
+        <div class="lantern__spark"></div>
+        <div class="lantern__spark"></div>
+        <div class="lantern__spark"></div>
+      </div>
+      <div class="lantern__base"></div>
+    </div>
+  </div>
+  <div class="scene">
+    <div class="halo">
+      <i></i>
+      <i></i>
+      <i></i>
+      <i></i>
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  // animations
+  @keyframes scene-anim {
+    0% {
+      box-shadow: inset 0 0 0 3px var(--glow);
+    }
+    20% {
+      box-shadow: inset 0 0 0 8px var(--glow);
+    }
+    40% {
+      box-shadow: inset 0 0 0 2px var(--glow);
+    }
+    60% {
+      box-shadow: inset 0 0 0 6px var(--glow);
+    }
+    80% {
+      box-shadow: inset 0 0 0 3px var(--glow);
+    }
+    100% {
+      box-shadow: inset 0 0 0 5px var(--glow);
+    }
+  }
+  @keyframes halo-anim {
+    50% {
+      transform: scale(1.08);
+    }
+  }
+  @keyframes lantern-anim {
+    0% {
+      transform: rotateZ(18deg);
+    }
+    100% {
+      transform: rotateZ(-18deg);
+    }
+  }
+  @keyframes stage-rotation-anim {
+    0% {
+      transform: rotateZ(25deg);
+    }
+    100% {
+      transform: rotateZ(-25deg);
+    }
+  }
+  @keyframes lantern-spark-anim {
+    100% {
+      transform: rotateZ(360deg);
+    }
+  }
+  @keyframes planet-anim {
+    0% {
+      margin-left: calc(var(--orbit) * -1);
+      z-index: 1;
+    }
+    50% {
+      margin-left: var(--orbit);
+      z-index: 1;
+    }
+    50.1% {
+      margin-left: var(--orbit);
+      z-index: 0;
+    }
+    100% {
+      margin-left: calc(var(--orbit) * -1);
+      z-index: 0;
+    }
+  }
+  @keyframes planet-light-anim {
+    0% {
+      transform: translateX(-100%);
+    }
+    50% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    overflow: hidden;
+    width: 100%;
+    padding-bottom: 7rem;
+    @media screen and (max-height: 653px), screen and (max-width: 350px) {
+      display: none;
+    }
+  }
+  .scene {
+    --bg: rgba(255, 204, 0, 0.1);
+    --glow: rgba(255, 204, 0, 0.07);
+    --md-size: 25rem;
+    --sm-size: 21.875rem;
+    --xs-size: 20rem;
+    --size: 18.125rem;
+    animation: stage-rotation-anim 1.5s ease-in-out alternate infinite;
+    position: relative;
+    width: var(--md-size);
+    height: var(--md-size);
+    &::before {
+      animation: scene-anim 0.6s infinite steps(6);
+      background: var(--bg);
+      border-radius: var(--md-size);
+      box-shadow: inset 10 0 0 3px var(--glow);
+      content: "";
+      height: var(--md-size);
+      left: calc(50% - (var(--md-size) / 2));
+      position: absolute;
+      top: calc(50% - 6.25rem);
+      width: var(--md-size);
+      @include media("md", "~sm") {
+        border-radius: var(--sm-size);
+        height: var(--sm-size);
+        top: calc(50% - 5.3125rem);
+        left: calc(50% - (var(--sm-size) / 2));
+        width: var(--sm-size);
+      }
+      @include media("sm", "~xs") {
+        border-radius: var(--xs-size);
+        height: var(--xs-size);
+        top: calc(50% - 4.0625rem);
+        left: calc(50% - (var(--xs-size) / 2));
+        width: var(--xs-size);
+      }
+      @include media("xs") {
+        border-radius: var(--size);
+        height: var(--size);
+        top: calc(50% - 3.75rem);
+        left: calc(50% - (var(--size) / 2));
+        width: var(--size);
+      }
+    }
+    @include media("md", "~xs") {
+      position: relative;
+      height: var(--sm-size);
+      width: var(--sm-size);
+    }
+    @include media("xs") {
+      height: var(--size);
+      width: var(--size);
+    }
+  }
+  .halo {
+    --c-1: rgba(255, 204, 0, 0.4);
+    --c-2: rgb(245, 147, 23, 0.4);
+    --c-3: rgba(255, 204, 0, 0.45);
+    --c-4: rgb(245, 107, 23, 0.5);
+    --s-core: 6.25rem;
+    --md-s-1: 6.25rem;
+    --sm-s-1: 5.625rem;
+    --xs-s-1: 5rem;
+    --s-1: 4.375rem;
+    --md-s-2: 5rem;
+    --sm-s-2: 4.375rem;
+    --xs-s-2: 3.75rem;
+    --s-2: 3.125rem;
+    --md-s-3: 3.4375rem;
+    --sm-s-3: 2.8125rem;
+    --xs-s-3: 2.5rem;
+    --s-3: 2.1875rem;
+    --md-s-4: 1.75rem;
+    --sm-s-4: 1.25rem;
+    --xs-s-4: 2.8125rem;
+    --s-4: 0.9375rem;
+    position: relative;
+    top: 62%;
+    animation: lantern-anim 1.5s ease-in-out alternate infinite;
+    i {
+      --c: var(--c-1);
+      --s: var(--md-s-1);
+      @include media("md", "~sm") {
+        --s: var(--sm-s-1);
+      }
+      @include media("sm", "~xs") {
+        --s: var(--xs-s-1);
+      }
+      @include media("xs") {
+        --s: var(--s-1);
+      }
+      animation: 4s halo-anim 0.4s ease-in-out infinite;
+      background-color: var(--c);
+      box-shadow: 0 0 0 var(--s) var(--c);
+      border-radius: 50%;
+      display: block;
+      left: calc(50% - (var(--s-core) / 2));
+      height: var(--s-core);
+      position: absolute;
+      top: 50%;
+      transform-origin: center center;
+      width: var(--s-core);
+      &:nth-child(2) {
+        animation-delay: 0.4s;
+        animation-duration: 3.5s;
+        --c: var(--c-2);
+        --s: var(--md-s-2);
+        @include media("md", "~sm") {
+          --s: var(--sm-s-2);
+        }
+        @include media("sm", "~xs") {
+          --s: var(--xs-s-2);
+        }
+        @include media("xs") {
+          --s: var(--s-2);
+        }
+      }
+      &:nth-child(3) {
+        animation-delay: 0.2.5s;
+        animation-duration: 3s;
+        --c: var(--c-3);
+        --s: var(--md-s-3);
+        @include media("md", "~sm") {
+          --s: var(--sm-s-3);
+        }
+        @include media("sm", "~xs") {
+          --s: var(--xs-s-3);
+        }
+        @include media("xs") {
+          --s: var(--s-3);
+        }
+      }
+      &:nth-child(4) {
+        animation-delay: 0.2s;
+        animation-duration: 2.5s;
+        --c: var(--c-4);
+        --s: var(--md-s-4);
+        @include media("md", "~sm") {
+          --s: var(--sm-s-4);
+        }
+        @include media("sm", "~xs") {
+          --s: var(--xs-s-4);
+        }
+        @include media("xs") {
+          --s: var(--s-4);
+        }
+      }
+    }
+  }
+  .lantern {
+    --c-lantern-body: #263238;
+    --c-lantern-light: rgba(245, 207, 23, 0.9);
+    --c-lantern-glow: rgb(245, 147, 23, 0.95);
+    display: flex;
+    flex-direction: column;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+    z-index: 1;
+    &__handle {
+      text-align: center;
+      padding-top: 1.25rem;
+      height: 4.375rem;
+      width: 14.375rem;
+      border: 6px solid #263238;
+      border-radius: 38px;
+      cursor: pointer;
+      &--hidden {
+        display: none;
+        text-align: center;
+        border: 2px solid orange;
+        height: 4.375rem;
+        width: 14.375rem;
+        border-radius: 8px;
+        padding-top: 1.25rem;
+        margin: auto;
+        cursor: pointer;
+        @media screen and (max-height: 653px), screen and (max-width: 350px) {
+          display: block;
+        }
+      }
+    }
+    &__inner {
+      animation: lantern-anim 1.5s ease-in-out alternate infinite;
+      margin-top: 0;
+      transform-origin: top center;
+    }
+    &__chain {
+      height: 3.75rem;
+      &::before {
+        --c: #37474f;
+
+        background-color: var(--c);
+        box-shadow:
+          0 0 0 5px var(--c),
+          0 20px 0 var(--c),
+          0 35px 0 var(--c),
+          0 50px 0 var(--c);
+        border-radius: 50%;
+        content: "";
+        display: block;
+        height: 0.625rem;
+        width: 0.625rem;
+        margin: 0 auto;
+      }
+    }
+    &__head {
+      &::after,
+      &::before {
+        background: var(--c-lantern-body);
+        border-radius: 5px;
+        content: "";
+        display: block;
+        height: 1rem;
+        @include media("md", "~sm") {
+          height: 0.75rem;
+        }
+        @include media("sm", "~xs") {
+          height: 0.625rem;
+        }
+        @include media("xs") {
+          height: 0.5rem;
+        }
+      }
+      &::after {
+        margin: 3px auto;
+        border-radius: 3px;
+        width: 3.75rem;
+        height: 1.875rem;
+        @include media("md", "~sm") {
+          width: 3.375rem;
+          height: 1.6875rem;
+        }
+        @include media("sm", "~xs") {
+          width: 3.125rem;
+          height: 1.5625rem;
+        }
+        @include media("xs") {
+          width: 2.5rem;
+          height: 1.25rem;
+        }
+      }
+      &::before {
+        margin: 0 auto;
+        width: 6.25rem;
+        @include media("md", "~sm") {
+          width: 4.6875rem;
+        }
+        @include media("sm", "~xs") {
+          width: 4.0625rem;
+        }
+        @include media("xs") {
+          width: 3.75rem;
+        }
+      }
+    }
+    &__body {
+      position: relative;
+      perspective: 21.875rem;
+      &::before {
+        background-color: var(--c-lantern-light);
+        border: 8px solid var(--c-lantern-body);
+        border-radius: 50px;
+        box-shadow:
+          inset 0 0 0 5px var(--c-lantern-light),
+          inset 0 0 0 20px var(--c-lantern-glow);
+        content: "";
+        display: block;
+        margin: 0 auto;
+        perspective: 6.25rem;
+        transform: rotateX(20deg) translateY(-1.25rem);
+        transform-origin: center center;
+        height: 12.1875rem;
+        width: 7.5rem;
+        @include media("md", "~sm") {
+          height: 11.5625rem;
+          width: 7.5rem;
+        }
+        @include media("sm", "~xs") {
+          height: 10.9375rem;
+          width: 6.875rem;
+        }
+        @include media("xs") {
+          height: 10.5rem;
+          width: 6.5rem;
+        }
+      }
+      &::after {
+        --c: #37474f;
+        background-color: var(--c);
+        border-radius: 4px;
+        box-shadow:
+          -5px 161px 0 1px var(--c),
+          5px 161px 0 1px var(--c);
+        content: "";
+        display: block;
+        height: 0.5rem;
+        width: 2.5rem;
+        margin: -0.5rem auto 0;
+        transform: translateY(-12.1875rem);
+      }
+      @include media("md", "~sm") {
+        perspective: 18.75rem;
+      }
+      @include media("sm") {
+        perspective: 15rem;
+      }
+    }
+    &__spark {
+      animation: lantern-spark-anim linear 2s forwards infinite;
+      background: radial-gradient(
+          circle at center,
+          var(--c-lantern-light) 65%,
+          transparent 60%
+        ),
+        linear-gradient(to right, transparent 10%, #ffecb3 50%, transparent 50%);
+      border-radius: 50%;
+      clip: rect(0px 30px 30px 0px);
+      position: absolute;
+      left: calc(50% - 1.875rem);
+      top: calc(45% - 1.875rem);
+      transform-origin: center center;
+      height: 3.75rem;
+      width: 3.75rem;
+      &:nth-child(2) {
+        animation-delay: calc(2s / 3);
+      }
+      &:nth-child(3) {
+        animation-delay: calc((2s / 3) * 2);
+      }
+    }
+    &__base {
+      background: var(--c-lantern-body);
+      border-radius: 5px;
+      display: block;
+      margin: -0.9375rem auto 0;
+      width: 4.375rem;
+      height: 1rem;
+      @include media("sm") {
+        height: 0.75rem;
+      }
+      @include media("xs") {
+        width: 3.75rem;
+        height: 0.625rem;
+      }
+    }
+  }
+</style>
