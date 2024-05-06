@@ -1,0 +1,21 @@
+@import "../_variables";
+
+@mixin media($breakpointArgs...) {
+  $query: "";
+  @each $breakpoint in $breakpointArgs {
+    $op: "";
+     @if ( $query != "" ) {
+      $op: " and ";
+    }
+    @if map-has-key($breakpoints, $breakpoint) {
+      $query: $query + $op + inspect(map-get($breakpoints, $breakpoint));
+    }
+     @else {
+      @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+      + "Please make sure it is defined in '$breakpoints' map (__variables.scss file.)";
+    }
+  }
+  @media screen and #{$query} {
+    @content;
+  }
+}
