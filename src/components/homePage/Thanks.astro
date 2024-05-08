@@ -1,0 +1,209 @@
+---
+import { Image } from "astro:assets";
+import ThanksImage from "../../assets/images/thanks.png";
+
+// #FIXME
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+---
+
+<div id={id} class="thanks">
+  <section class="thanks__content">
+    <h1>Thank You For Visiting My Website</h1>
+    <p>
+      Thank you very much for scrolling throw the end, Ive put a lots of effort
+      in creating and designing the website.
+      <br />
+      It would make me happy if you share this with your friends.
+      <br />
+      Also my contact info is in the footer, i rally like to
+      <br />
+      BTW if you want to explore more:
+    </p>
+    <div class="button__container">
+      <a class="button" href="#">
+        <ul>
+          <li></li><li></li><li></li><li></li><li></li><li></li>
+        </ul>
+        <span>Projects</span>
+      </a>
+      <a class="button" href="#">
+        <ul>
+          <li></li><li></li><li></li><li></li><li></li><li></li>
+        </ul>
+        <span>Blogs</span>
+      </a>
+    </div>
+  </section>
+  <Image alt="thanks" src={ThanksImage} height="500" width="500" />
+</div>
+
+<style lang="scss">
+  .thanks {
+    padding: 6rem 6rem 0 6rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    &__content {
+      margin-top: 13rem;
+      padding-left: 5rem;
+      h1 {
+        margin-bottom: 1.5rem;
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+        color: #475569;
+        @include media("md") {
+          font-size: 1.5rem;
+        }
+        @include media("sm") {
+          margin-bottom: 1rem;
+        }
+      }
+      p {
+        margin-bottom: 3rem;
+        font-size: 1rem;
+        line-height: 1.5rem;
+        color: #64748b;
+        max-width: 38rem;
+        @include media("md") {
+          font-size: 0.875rem;
+          max-width: none;
+        }
+        @include media("sm") {
+          margin-bottom: 1.5rem;
+        }
+      }
+      @include media("xl") {
+        margin-top: 12rem;
+        padding-left: 3rem;
+      }
+      @include media("lg") {
+        position: relative;
+        bottom: 10rem;
+        padding-left: 0;
+        max-width: 34.375rem;
+      }
+      @include media("md") {
+        max-width: none;
+        bottom: 8rem;
+      }
+      @include media("sm") {
+        bottom: 4rem;
+        margin-top: 0;
+      }
+    }
+    @include media("xxl", "~xl") {
+      padding: 6rem 2rem 0 0;
+    }
+    @include media("xl", "~lg") {
+      padding: 6rem 1rem 0 0;
+    }
+    @include media("lg") {
+      padding: 10rem 2rem 0 2rem;
+      position: relative;
+    }
+    @include media("sm") {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      text-align: center;
+    }
+  }
+  img {
+    opacity: 0.4;
+    position: static;
+    z-index: -10;
+    @include media("lg") {
+      width: 25rem;
+      height: auto;
+      position: absolute;
+      right: 2rem;
+      bottom: -0.625rem;
+      opacity: 0.2;
+    }
+    @include media("md", "~sm") {
+      left: calc(50% - 11.5625rem);
+    }
+    @include media("sm", "~xs") {
+      width: 18.75rem;
+      left: calc(50% - 8.3125rem);
+    }
+    @include media("xs") {
+      width: 18rem;
+      left: calc(50% - 8rem);
+    }
+  }
+  .button {
+    border-radius: 0.19rem;
+    background-color: #1f2937;
+    color: #fff;
+    display: inline-block;
+    font-size: 1.125rem;
+    width: 12.5rem;
+    height: 3em;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    &__container {
+      display: flex;
+      column-gap: 1rem;
+      @include media("md", "~sm") {
+      }
+      @include media("sm") {
+        flex-direction: column;
+        row-gap: 1rem;
+      }
+    }
+    @include media("~md") {
+      span {
+        display: block;
+        position: relative;
+      }
+      &:hover ul {
+        transform: translateY(-81%);
+        transform-origin: left top;
+      }
+      ul {
+        position: absolute;
+        width: 12em;
+        height: 6em;
+        background-color: #002028;
+        left: 0;
+        top: 3.8em;
+        transition: all 0.6s cubic-bezier(0.39, 0.58, 0.57, 1);
+        li {
+          float: left;
+          position: relative;
+          overflow: hidden;
+          width: 2rem;
+          height: 1rem;
+          margin-top: -0.5rem;
+          &:after,
+          &:before {
+            content: "";
+            float: left;
+            height: 100%;
+            width: 50%;
+            border-radius: 50%;
+          }
+          &:before {
+            background-color: #1f2937;
+          }
+          &:after {
+            background-color: #002028;
+          }
+        }
+      }
+    }
+    @include media("md", "~sm") {
+      width: 50%;
+    }
+    @include media("sm") {
+      width: 100%;
+    }
+  }
+</style>
