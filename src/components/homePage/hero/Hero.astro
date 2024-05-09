@@ -1,0 +1,68 @@
+---
+import Canvas from "./canvas/Canvas.astro";
+import TypeWriter from "./typewriter/TypeWriter.astro";
+import Lantern from "./Lantern.astro";
+const typeWriterTitles = [
+  "a Software Developer",
+  "a Front-end Specialist",
+  "Batman"
+];
+---
+
+<Canvas />
+<div>
+  <h1>Bamdad Sabet</h1>
+  <TypeWriter changingTitles={typeWriterTitles} />
+  <Lantern />
+</div>
+
+<style lang="scss">
+  div {
+    margin-bottom: 3rem;
+    width: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: calc(50% - 18rem);
+    h1 {
+      background: linear-gradient(
+        358deg,
+        #fef08a 2%,
+        #d97706 49%,
+        #b45309 71%,
+        #eab308 100%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      font-size: 6.25rem;
+      @include media("md", "~sm") {
+        font-size: 5rem;
+      }
+      @include media("sm", "~xs") {
+        font-size: 4rem;
+      }
+      @include media("xs") {
+        font-size: 2.8rem;
+      }
+    }
+    @media screen and (max-height: 765px) and (min-height: 678px),
+      screen and (max-width: 375px) {
+      top: 3.5rem;
+    }
+    @media screen and (max-height: 678px) and (min-height: 666px),
+      screen and (max-width: 375px) {
+      top: 2rem;
+    }
+    @media screen and (max-height: 666px) and (min-height: 653px),
+      screen and (max-width: 375px) {
+      top: 1.5rem;
+    }
+    @media screen and (max-height: 653px), screen and (max-width: 375px) {
+      top: calc(50% - 8rem);
+    }
+    @include media("sm") {
+      top: calc(50% - 12rem);
+    }
+  }
+</style>
