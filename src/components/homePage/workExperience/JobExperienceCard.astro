@@ -9,6 +9,7 @@ interface Props {
   companyLogo: { src: ImageMetadata; alt: string };
   hexRGBColor: string;
   href: string;
+  animationReversed?: boolean;
 }
 
 const {
@@ -18,31 +19,46 @@ const {
   companyDescription,
   companyLogo,
   hexRGBColor,
-  href
+  href,
+  animationReversed = false
 } = Astro.props;
 ---
 
 <div class="card">
   <div class="card__date__wrapper">
-    <div class="hexagon hexagon--colored">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 177.4 197.4">
-        <path
-          d="M0,58.4v79.9c0,6.5,3.5,12.6,9.2,15.8l70.5,40.2c5.6,3.2,12.4,3.2,18,0l70.5-40.2c5.7-3.2,9.2-9.3,9.2-15.8V58.4 c0-6.5-3.5-12.6-9.2-15.8L97.7,2.4c-5.6-3.2-12.4-3.2-18,0L9.2,42.5C3.5,45.8,0,51.8,0,58.4z"
-        ></path>
-      </svg>
+    <div
+      data-animation="zoom-in"
+      data-animation-delay="300"
+      class="hexagon__wrapper"
+    >
+      <div class="hexagon hexagon--colored">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 177.4 197.4">
+          <path
+            d="M0,58.4v79.9c0,6.5,3.5,12.6,9.2,15.8l70.5,40.2c5.6,3.2,12.4,3.2,18,0l70.5-40.2c5.7-3.2,9.2-9.3,9.2-15.8V58.4 c0-6.5-3.5-12.6-9.2-15.8L97.7,2.4c-5.6-3.2-12.4-3.2-18,0L9.2,42.5C3.5,45.8,0,51.8,0,58.4z"
+          ></path>
+        </svg>
+      </div>
+      <div class="hexagon hexagon--white">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 177.4 197.4">
+          <path
+            d="M0,58.4v79.9c0,6.5,3.5,12.6,9.2,15.8l70.5,40.2c5.6,3.2,12.4,3.2,18,0l70.5-40.2c5.7-3.2,9.2-9.3,9.2-15.8V58.4 c0-6.5-3.5-12.6-9.2-15.8L97.7,2.4c-5.6-3.2-12.4-3.2-18,0L9.2,42.5C3.5,45.8,0,51.8,0,58.4z"
+          ></path>
+        </svg>
+      </div>
     </div>
-    <div class="hexagon hexagon--white">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 177.4 197.4">
-        <path
-          d="M0,58.4v79.9c0,6.5,3.5,12.6,9.2,15.8l70.5,40.2c5.6,3.2,12.4,3.2,18,0l70.5-40.2c5.7-3.2,9.2-9.3,9.2-15.8V58.4 c0-6.5-3.5-12.6-9.2-15.8L97.7,2.4c-5.6-3.2-12.4-3.2-18,0L9.2,42.5C3.5,45.8,0,51.8,0,58.4z"
-        ></path>
-      </svg>
-    </div>
-    <h4 class="text-slate-500 card__date">
+    <h4
+      class="card__date"
+      data-animation={animationReversed ? "fade-in-left" : "fade-in-right"}
+      data-animation-delay="600"
+    >
       {duration}
     </h4>
   </div>
-  <div class="card__content">
+  <div
+    class="card__content"
+    data-animation={animationReversed ? "fade-in-right" : "fade-in-left"}
+    data-animation-delay="600"
+  >
     <Image src={companyLogo.src} alt={companyLogo.alt} width={70} height={70} />
     <h5>
       {jobTitle}
@@ -85,13 +101,15 @@ const {
   }
 
   .hexagon {
-    opacity: 1;
     position: absolute;
     top: 0;
     z-index: -10;
     height: 1.5rem;
     width: 1.25rem;
-    transition-duration: 700ms;
+    transition-duration: 0.7s;
+    &__wrapper {
+      animation-duration: 1s;
+    }
     &--colored {
       position: relative;
       z-index: 0;
@@ -108,16 +126,15 @@ const {
     display: flex;
     align-items: center;
     margin-bottom: 2.5rem;
-    transition-duration: 500ms;
     &__content {
-      opacity: 1;
-      transform: translateX(0.625rem);
+      animation-duration: 0.5s;
+      left: 0.625rem;
       position: relative;
       padding: 1.5rem 2rem;
       width: 100%;
       max-width: 21.25rem;
       box-shadow: 7px 5px 30px 0 rgba(72, 73, 121, 0.15);
-      transition-duration: 500ms;
+      transition-duration: 0.5s;
       overflow: hidden;
       border-radius: 0.25rem;
       background-color: white;
@@ -182,28 +199,29 @@ const {
         text-align: left;
         transform: translate(-1.5625rem, 0.5rem) !important;
         margin: 0 auto 1rem auto;
+        left: 0 !important;
       }
       @include media("sm") {
         width: 300px;
         margin: 0 auto 0.625rem auto;
-        transform: translateX(0) !important;
+        left: 0 !important;
       }
     }
     &__date {
+      animation-duration: 0.5s;
       position: absolute;
       top: 0;
       right: 100%;
-      padding-right: 3rem;
+      padding-right: 3.625rem;
       font-size: 1.5rem;
       line-height: 1.5rem;
       font-weight: 700;
       white-space: nowrap;
-      transition-duration: 300ms;
-      transform: translateX(-1.25rem);
+      transition-duration: 0.3s;
+      color: #64748b;
       &__wrapper {
         position: relative;
         z-index: 10;
-        opacity: 1;
         margin-left: calc(50% - 0.625rem);
         margin-right: 3rem;
         @include media("md", "~sm") {
@@ -227,18 +245,14 @@ const {
     }
     &:nth-child(even) {
       flex-direction: row-reverse;
-      .card__content,
-      .card__date {
-        opacity: 1;
-      }
       .card__content {
-        transform: translateX(-1.25rem);
+        position: relative;
+        left: -1.25rem;
       }
       .card__date {
         right: auto;
         left: 100%;
-        transform: translateX(1.5rem);
-        padding-left: 3rem;
+        padding-left: 3.625rem;
         padding-right: 0;
         &__wrapper {
           margin-right: calc(50% - 0.625rem);
@@ -251,24 +265,27 @@ const {
     }
     &:hover {
       .card__content {
-        transform: translateX(-0.25rem);
+        transform: translateX(-1.25rem);
         background-color: white;
-        @include media("md") {
-          transform: translateX(0.25rem);
+        @include media("md", "~sm") {
+          transform: translateX(1.25rem);
+        }
+        @include media("sm") {
+          transform: translateX(0) !important;
         }
       }
       .card__date {
-        transform: translateX(0.25rem);
+        transform: translateX(1.25rem);
       }
       .hexagon:nth-child(2) {
         animation: pulse_hexagon 2s infinite;
       }
       &:nth-child(even) {
         .card__content {
-          transform: translateX(0.25rem);
+          transform: translateX(1.25rem);
         }
         .card__date {
-          transform: translateX(0.25rem);
+          transform: translateX(-1.25rem);
         }
       }
     }

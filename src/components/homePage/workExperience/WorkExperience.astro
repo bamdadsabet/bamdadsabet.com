@@ -59,11 +59,11 @@ const experienceContents = [
 ];
 ---
 
-<div id={id} class="section">
+<div id={id} class="work-experience">
   <SectionTitle title="Work Experience" />
-  <div class="time-line">
+  <div class="time-line" data-animation="fade-in-up-long">
     {
-      experienceContents.map((conetent) => (
+      experienceContents.map((conetent, index) => (
         <JobExperienceCard
           jobTitle={conetent.jobTitle}
           companyName={conetent.companyName}
@@ -72,6 +72,7 @@ const experienceContents = [
           companyLogo={conetent.companyLogo}
           hexRGBColor={conetent.hexRGBColor}
           href="#"
+          animationReversed={index % 2 === 0}
         />
       ))
     }
@@ -85,10 +86,10 @@ const experienceContents = [
 </div>
 
 <style lang="scss">
-  .section {
+  .work-experience {
     margin: 3rem 0;
     padding: 0 2rem 3rem 2rem;
-    font-display: flex;
+    overflow-y: hidden;
     justify-content: center;
     background-color: #f9fafb;
     @include media("lg", "~md") {
@@ -105,6 +106,8 @@ const experienceContents = [
     padding: 5rem 0;
     z-index: 1;
     width: 100%;
+    animation-duration: 0.8s;
+    animation-timing-function: linear;
     &:before {
       content: "";
       position: absolute;
@@ -126,6 +129,7 @@ const experienceContents = [
       }
       @include media("sm") {
         left: 50%;
+        animation-duration: 0.5s;
       }
     }
   }
