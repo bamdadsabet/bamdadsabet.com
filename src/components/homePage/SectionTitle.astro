@@ -1,14 +1,17 @@
 ---
 interface Props {
   title: string;
+  animationReverse?: boolean;
 }
 
-const { title } = Astro.props;
+const { title, animationReverse = false } = Astro.props;
 ---
 
 <div class="section-title">
-  <h1>{title}</h1>
-  <hr />
+  <h1 data-animation={animationReverse ? "fade-in-right" : "fade-in-left"}>
+    {title}
+  </h1>
+  <hr data-animation={animationReverse ? " fade-in-left" : "fade-in-right"} />
 </div>
 
 <style lang="scss">
@@ -17,6 +20,10 @@ const { title } = Astro.props;
     padding-bottom: 3rem;
     padding-top: 1.25rem;
     width: fit-content;
+    h1,
+    hr {
+      animation-duration: 0.6s;
+    }
     h1 {
       text-align: center;
       font-size: 2.25rem;
@@ -26,6 +33,7 @@ const { title } = Astro.props;
     }
     hr {
       height: 3px;
+      outline: none;
       background-color: #ea580c;
     }
   }
