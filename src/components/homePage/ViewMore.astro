@@ -1,18 +1,19 @@
 ---
 interface Props {
-  title: string
-  href: string
+  title: string;
+  href: string;
 }
 
-const { title, href } = Astro.props
+const { title, href } = Astro.props;
 ---
 
 <a class="view-more" href={href}>{title}</a>
 
 <style>
   .view-more {
-    margin:auto;
+    margin: auto;
     margin-top: 4rem;
+    padding-bottom: 3rem;
     width: fit-content;
     display: block;
     color: #0ea5e9;
