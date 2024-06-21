@@ -1,7 +1,17 @@
+import { getBreakingPoint, BreakingPointes, BreakingPointsWidth } from "@/utils/helpers/breakingPoints";
+import { rand } from "@utils/helpers/random";
+
 type CanvasShapeType = readonly[BambooInstance[], FireflyInstance[]];
 
 type CanvasVariablesType = [CanvasRenderingContext2D, number, number, number];
 
+type RenderCanvasType = (canvas: HTMLCanvasElement) => void;
+
+type GetCanvasVariablesType = (canvas: HTMLCanvasElement) => CanvasVariablesType;
+
+type CreateShapesType = (ctx: CanvasRenderingContext2D, screenWidth: number, screenHeight: number, totalFireflyNum: number) => CanvasShapeType
+
+type InitCanvasType = (canvas:  HTMLCanvasElement) => readonly[renderAll: ()=> void, resize: () => void]
 
 class BambooInstance {
     private spaceBetweenChunks: number = rand(3, 6) ;
@@ -74,7 +84,7 @@ class FireflyInstance {
     private init(x: number, y:number): void {
         this.positionX = x;
         this.positionY = y;
-        this.radius = (this.screenWidth > breakingPoints.md && Math.random() > 0.95) ? rand(50, 120) : rand(2, 15);
+        this.radius = (this.screenWidth > BreakingPointsWidth.md && Math.random() > 0.95) ? rand(50, 120) : rand(2, 15);
         this.transferVector = {
             x: rand(-3,3),
             y: rand(-0.5,0.5),
@@ -119,56 +129,42 @@ class FireflyInstance {
     };
 }
 
-// #FIXME global
-const breakingPoints = {
-    xs: 475,
-    sm: 640,
-    md: 768,
-    lg: 1024,
-    xl: 1280,
-    xxl: 1536
-}
-
-// #FIXME global
-const rand = (min: number, max: number): number => {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-const renderCanvas = (canvas: HTMLCanvasElement): void => {
-  const [renderAll, resize] = initCanvas(canvas)
-  renderAll();
-  window.addEventListener('resize', resize)
-}
-
-const getCanvasVariables = (canvas: HTMLCanvasElement): CanvasVariablesType => {
+const getCanvasVariables: GetCanvasVariablesType = (canvas) => {
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
     canvas.height = screenHeight;
     canvas.width = screenWidth;
     const ctx: CanvasRenderingContext2D =  canvas.getContext('2d') as CanvasRenderingContext2D;
     let totalFireflyNum: number = 0;
-    if(screenWidth > breakingPoints.xxl) {
-        totalFireflyNum = 650
+    const { minWidth } = getBreakingPoint(screenWidth)
+    
+    switch (minWidth) {
+        case(BreakingPointes.xxl):
+            totalFireflyNum = 650;
+            break;
+        case(BreakingPointes.xl):
+            totalFireflyNum = 500;
+            break;  
+        case(BreakingPointes.lg):
+            totalFireflyNum = 400;
+            break;
+        case(BreakingPointes.md):
+            totalFireflyNum = 250;
+            break;
+        case(BreakingPointes.sm):
+            totalFireflyNum = 200;
+            break;
+        case(BreakingPointes.xs):
+            totalFireflyNum = 100;
+            break;
+        default:
+            totalFireflyNum = 80;
     }
-    else if(screenWidth <= breakingPoints.xxl && screenWidth > breakingPoints.xl) {
-        totalFireflyNum = 500
-    }
-    else if(screenWidth <= breakingPoints.xl && screenWidth > breakingPoints.lg) {
-        totalFireflyNum = 400        
-    }
-    else if(screenWidth <= breakingPoints.lg && screenWidth > breakingPoints.md) {
-        totalFireflyNum = 250
-    }
-    else if(screenWidth <= breakingPoints.md && screenWidth > breakingPoints.sm) {
-        totalFireflyNum = 200
-    }
-    else if(screenWidth <= breakingPoints.sm) {
-        totalFireflyNum = 100
-    }
+
     return [ctx, screenWidth, screenHeight, totalFireflyNum];
 }
 
-const createShapes = (ctx: CanvasRenderingContext2D, screenWidth: number, screenHeight: number, totalFireflyNum: number): CanvasShapeType => {
+const createShapes: CreateShapesType = (ctx, screenWidth, screenHeight, totalFireflyNum) => {
 
     // creating bamboos
     const bamboos: BambooInstance[] = [];
@@ -176,21 +172,23 @@ const createShapes = (ctx: CanvasRenderingContext2D, screenWidth: number, screen
         let distance: number = rand(15, 25); 
         let width: number = rand(15, 50);
         let height: number = rand(100, 300);
-        if(screenWidth <= breakingPoints.lg && screenWidth > breakingPoints.md) {
+
+        if(screenWidth <= BreakingPointsWidth.lg && screenWidth > BreakingPointsWidth.md) {
             distance = rand(15, 25); 
             width = rand(15, 40);
             height = rand(100, 200);
         }
-        else if(screenWidth <= breakingPoints.md && screenWidth > breakingPoints.sm) {
+        else if(screenWidth <= BreakingPointsWidth.md && screenWidth > BreakingPointsWidth.sm) {
             distance = rand(15, 20); 
             width = rand(15, 20);
             height = rand(80, 100);
         }
-        else if(screenWidth <= breakingPoints.sm) {
+        else if(screenWidth <= BreakingPointsWidth.sm) {
             distance = rand(10, 15); 
             width = rand(15, 20);
             height = rand(80, 100);
         }
+
         const maxNum = screenHeight / height;
         x += distance + width;
         const bamboo = new BambooInstance(ctx, x, screenHeight, width, height, maxNum);
@@ -207,25 +205,28 @@ const createShapes = (ctx: CanvasRenderingContext2D, screenWidth: number, screen
     return [bamboos, fireflies] as const;
 };
 
-const initCanvas = (canvas:  HTMLCanvasElement): readonly[renderAll: ()=> void, resize: () => void] => {
-    let [ctx, screenWidth, screenHeight, totalFireflyNum] = getCanvasVariables(canvas);
-    let [bamboos, fireflies] = createShapes(ctx, screenWidth, screenHeight, totalFireflyNum);
+const initCanvas: InitCanvasType = (canvas) => {
+    let canvasVariables = getCanvasVariables(canvas);
+    let [bamboos, fireflies] = createShapes(...canvasVariables);
     const renderAll = (): void => {
+        const [ ctx, screenWidth, screenHeight] = canvasVariables;
         ctx.clearRect(0, 0 , screenWidth, screenHeight)
         bamboos.forEach((item: BambooInstance) => item.render());
         fireflies.forEach((item: FireflyInstance) => item.render());
         requestAnimationFrame(renderAll);
     }; 
     const resize = () => {
-        [ctx, screenWidth, screenHeight, totalFireflyNum] = getCanvasVariables(canvas);
-        [bamboos, fireflies] = createShapes(ctx, screenWidth, screenHeight, totalFireflyNum);
+        canvasVariables = getCanvasVariables(canvas);
+        [bamboos, fireflies] = createShapes(...canvasVariables);
     };
     
     return [renderAll, resize] as const;
 };
 
+const renderCanvas: RenderCanvasType = (canvas) => {
+    const [renderAll, resize] = initCanvas(canvas)
+    renderAll();
+    window.addEventListener('resize', resize)
+}
+
 export default renderCanvas
-
-export { getCanvasVariables, createShapes, initCanvas}
-
-export type { CanvasShapeType, CanvasVariablesType}
