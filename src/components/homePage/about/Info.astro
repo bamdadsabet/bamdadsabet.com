@@ -1,0 +1,76 @@
+---
+import { Image } from "astro:assets";
+
+interface Props extends ISectionContent {
+  image: IImage;
+}
+
+const { title, description, image } = Astro.props;
+---
+
+<div class="info-container">
+  <Image src={image.src} alt={image.alt} data-animation="fade-in" />
+  <section class="content">
+    <h1 data-animation="fade-in-down">{title}</h1>
+    <p data-animation="fade-in-down">{description}</p>
+  </section>
+</div>
+
+<style lang="scss">
+  $slate-600: #475569;
+  $gray-600: #4b5563;
+
+
+  .info-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 25rem;
+    column-gap: 12rem;
+    align-items: center;
+    @include media("lg") {
+      max-width: 30rem;
+    }
+  }
+  .content {
+    margin-top: 1.25rem;
+    @include media("lg") {
+      margin-top: 2rem;
+    }
+    h1 {
+      animation-duration: 1.5s;
+      animation-delay: 0.5s;
+      text-align: center;
+      color: $slate-600;
+      font-size: 1.5rem;
+      line-height: 2rem;
+      @include media("lg") {
+        animation-delay: 0s;
+      }
+    }
+    p {
+      animation-duration: 1s;
+      animation-delay: 1s;
+      margin-top: 0.75rem;
+      text-align: center;
+      color: $gray-600;
+      @include media("lg") {
+        margin-top: 1rem;
+        animation-delay: 0s;
+      }
+    }
+  }
+  img {
+    animation-duration: 2s;
+    animation-delay: 0.2s;
+    height: auto;
+    @include media("lg") {
+      animation-delay: 0;
+    }
+    @include media("lg", "~md") {
+      width: 75%;
+    }
+    @include media("md") {
+      width: 70%;
+    }
+  }
+</style>
