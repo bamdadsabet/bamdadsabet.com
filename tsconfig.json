@@ -13,7 +13,8 @@
       "@utils/*": ["src/utils/*"],
       "@helpers/*": ["src/utils/helpers/*"],
       "@constants/*": ["src/utils/constants/*"],
-      "@types/*": ["src/types/*"]
+      "@types/*": ["src/types/*"],
+      "@scripts/*": ["src/scripts/*"]
     }
   }
 }
