@@ -6,7 +6,7 @@ interface Props {
   jobTitle: string;
   companyName: string;
   companyDescription: string;
-  companyLogo: { src: ImageMetadata; alt: string };
+  companyLogo: IImage;
   hexRGBColor: string;
   href: string;
   animationReversed?: boolean;
@@ -26,11 +26,7 @@ const {
 
 <div class="card">
   <div class="card__date__wrapper">
-    <div
-      data-animation="zoom-in"
-      data-animation-delay="300"
-      class="hexagon__wrapper"
-    >
+    <div data-animation="zoom-in" class="hexagon__wrapper">
       <div class="hexagon hexagon--colored">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 177.4 197.4">
           <path
@@ -46,37 +42,50 @@ const {
         </svg>
       </div>
     </div>
-    <h4
-      class="card__date"
+    <section
       data-animation={animationReversed ? "fade-in-left" : "fade-in-right"}
-      data-animation-delay="600"
+      class="card__date__container"
     >
-      {duration}
-    </h4>
+      <h4
+        class="card__date"
+      >
+        {duration}
+      </h4>
+    </section>
   </div>
-  <div
-    class="card__content"
+  <section
     data-animation={animationReversed ? "fade-in-right" : "fade-in-left"}
-    data-animation-delay="600"
+    class="card__content__container"
   >
-    <Image src={companyLogo.src} alt={companyLogo.alt} width={70} height={70} />
-    <h5>
-      {jobTitle}
-    </h5>
-    <span>
-      {companyName}
+    <div
+      class="card__content"
+    >
+      <Image src={companyLogo.src} alt={companyLogo.alt} width={70} height={70} />
+      <h5>
+        {jobTitle}
+      </h5>
       <span>
-        ( {duration} )
+        {companyName}
+        <span>
+          ( {duration} )
+        </span>
       </span>
-    </span>
-    <p>
-      {companyDescription}
-    </p>
-    <a href={href}>Read More</a>
-  </div>
+      <p>
+        {companyDescription}
+      </p>
+      <a href={href}>Read More</a>
+    </div>
+  </section>
 </div>
 
 <style lang="scss" define:vars={{ hexRGBColor }}>
+  $slate-500: #64748b;
+  $slate-700: #334155;
+  $sky-600: #0284c7;
+  $gray-500: #6b7280;
+  $gray-600: #4b5563;
+
+
   @keyframes pulse_hexagon {
     0% {
       transform: scale(1);
@@ -99,7 +108,7 @@ const {
       transform: scale(1.5);
     }
   }
-
+  
   .hexagon {
     position: absolute;
     top: 0;
@@ -109,7 +118,9 @@ const {
     transition-duration: 0.7s;
     &__wrapper {
       animation-duration: 1s;
+      animation-delay: 0.3s;
     }
+
     &--colored {
       position: relative;
       z-index: 0;
@@ -117,17 +128,24 @@ const {
         fill: rgb(var(--hexRGBColor));
       }
     }
+    
     &--white svg {
       fill: white;
       filter: drop-shadow(1px 1.5px 5px rgba(var(--hexRGBColor), 0.3));
     }
   }
+
   .card {
     display: flex;
     align-items: center;
     margin-bottom: 2.5rem;
-    &__content {
+    &__content__container, &__date__container {
       animation-duration: 0.5s;
+      animation-delay: 0.6s;
+      height: fit-content;
+      width: fit-content;
+    }
+    &__content {
       left: 0.625rem;
       position: relative;
       padding: 1.5rem 2rem;
@@ -139,12 +157,25 @@ const {
       border-radius: 0.25rem;
       background-color: white;
       height: 21rem;
+      &__container {
+        @include media("md", "~sm") {
+          width: calc(100%  - 7rem);
+          display: flex;
+          justify-content: center;
+          animation-duration: 0.4s;
+        }
+        @include media("sm") {
+          width: 100%;
+          display: flex;
+          justify-content: center
+        }
+      }
       h5 {
         margin-bottom: 0.25rem;
         font-size: 1.125rem;
         line-height: 1.75rem;
         font-weight: 700;
-        color: #334155;
+        color: $slate-700;
         white-space: nowrap;
       }
       span {
@@ -152,7 +183,7 @@ const {
         font-weight: 400;
         font-size: 0.875rem;
         line-height: 1.25rem;
-        color: #6b7280;
+        color: $gray-500;
         span {
           margin-left: 0.5rem;
           font-size: 0.75rem;
@@ -165,11 +196,11 @@ const {
       }
       p {
         line-height: 1.75rem;
-        color: #4b5563;
+        color: $gray-600;
       }
       a {
         text-decoration: underline;
-        color: #0284c7;
+        color: $sky-600;
         position: absolute;
         bottom: 1.5rem;
       }
@@ -192,25 +223,23 @@ const {
         }
       }
       @include media("lg", "~md") {
-        max-width: 18rem;
+        max-width: 19rem;
         padding: 1.7rem 1rem;
       }
       @include media("md", "~sm") {
         text-align: left;
-        transform: translate(-1.5625rem, 0.5rem) !important;
+        transform: revert;
         margin: 0 auto 1rem auto;
         left: 0 !important;
       }
       @include media("sm") {
-        width: 300px;
-        margin: 0 auto 0.625rem auto;
+        margin-bottom: 0.625rem;
         left: 0 !important;
       }
     }
     &__date {
-      animation-duration: 0.5s;
       position: absolute;
-      top: 0;
+      top: -1.6rem;
       right: 100%;
       padding-right: 3.625rem;
       font-size: 1.5rem;
@@ -218,14 +247,14 @@ const {
       font-weight: 700;
       white-space: nowrap;
       transition-duration: 0.3s;
-      color: #64748b;
+      color: $slate-500;
       &__wrapper {
         position: relative;
         z-index: 10;
         margin-left: calc(50% - 0.625rem);
         margin-right: 3rem;
         @include media("md", "~sm") {
-          margin-left: 35px !important;
+          margin-left: 2.1875rem !important;
           margin-right: 0 !important;
         }
         @include media("sm") {
@@ -235,10 +264,10 @@ const {
       @include media("md") {
         width: 100%;
         padding: 0 !important;
-        right: 100% !important;
+        right: 100 !important;
         left: auto !important;
         transform-origin: top;
-        transform: translate(3.125rem, 3.125rem) rotate3d(0, 0, 1, -90deg) !important;
+        transform: translate(2.8rem, 3.7rem) rotate3d(0, 0, 1, -90deg) !important;
         font-size: 1.25rem;
         line-height: 1.25rem;
       }
@@ -267,10 +296,7 @@ const {
       .card__content {
         transform: translateX(-1.25rem);
         background-color: white;
-        @include media("md", "~sm") {
-          transform: translateX(1.25rem);
-        }
-        @include media("sm") {
+        @include media("md") {
           transform: translateX(0) !important;
         }
       }
