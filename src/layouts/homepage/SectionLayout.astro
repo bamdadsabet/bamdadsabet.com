@@ -1,0 +1,21 @@
+---
+interface Props {
+  id: string;
+  hasBackgroundColor?: boolean;
+}
+
+const { id, hasBackgroundColor = false } = Astro.props;
+---
+
+<div id={id}>
+  <slot />
+</div>
+
+<style lang="scss" scoped>
+  div {
+    padding: 6.25rem 2rem;
+    @include media("sm") {
+      padding: 0 1rem;
+    }
+  }
+</style>
