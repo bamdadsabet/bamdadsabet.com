@@ -1,9 +1,11 @@
 interface TypeWriterOptionsType {
-  typingSpeed?: number,
+  typingSpeed?: number, 
   typingDelay?: number,
   erasingSpeed?: number,
   erasingDelay?: number
 }
+
+type TypeWriterEffectType = (titles: string[], typeWriterElement: HTMLElement, options?: TypeWriterOptionsType) => void
 
 const defaultOptions = {
   typingSpeed: 150,
@@ -12,11 +14,14 @@ const defaultOptions = {
   erasingDelay: 2000
 }
 
-const typeWriterEffect = (titles: string[], typeWriterElement: HTMLElement, options: TypeWriterOptionsType = defaultOptions) => {
+//typewriterEffect creates a typewriter effect on a given element
+const typeWriterEffect: TypeWriterEffectType = (titles, typeWriterElement, options = defaultOptions) => {
   let stringIndex: number = 0;
   let charIndex: number = 0;
-  let erasingInterval: number;
+  let erasingInterval: NodeJS.Timeout;
 
+
+  //types the next character in the current string.
   const type = () => {
     const currentString = titles[stringIndex];
     if (charIndex < currentString.length) {
@@ -30,6 +35,7 @@ const typeWriterEffect = (titles: string[], typeWriterElement: HTMLElement, opti
     }
   };
   
+  //erases the last character in the typewriter element.
   const erase = () => {
     const currentString = titles[stringIndex];
     if (charIndex > 0) {
@@ -51,7 +57,5 @@ const typeWriterEffect = (titles: string[], typeWriterElement: HTMLElement, opti
 
   let typingInterval = setInterval(type, options.typingSpeed);
 }
-
-export type { TypeWriterOptionsType }
 
 export default typeWriterEffect;
