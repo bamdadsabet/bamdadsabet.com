@@ -1,6 +1,5 @@
 ---
-// #FIXME all paths should be refactore ever where
-import JobExperienceCard from "./JobExperienceCard.astro";
+import WorkExperienceCard from "./WorkExperienceCard.astro";
 import SupnexLogo from "@images/workExperience/supnex.jpeg";
 import amadehlazizLogo from "@images/workExperience/amadehlaziz.png";
 import yektanet from "@images/workExperience/yektanet.png";
@@ -64,7 +63,7 @@ const experienceContents = [
   <div class="time-line" data-animation="fade-in-up-long">
     {
       experienceContents.map((conetent, index) => (
-        <JobExperienceCard
+        <WorkExperienceCard
           jobTitle={conetent.jobTitle}
           companyName={conetent.companyName}
           companyDescription={conetent.companyDescription}
