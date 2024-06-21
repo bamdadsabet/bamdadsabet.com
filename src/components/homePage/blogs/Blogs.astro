@@ -1,0 +1,104 @@
+---
+import BlogCard from "./BlogCard.astro";
+import ImageSrc from "../../../assets/images/profile.jpg";
+import SectionTitle from "../SectionTitle.astro";
+import ViewMore from "../ViewMore.astro";
+
+// #FIXME
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+
+// FIXME add real href
+const blogs = [
+  {
+    title: "Can coffee make you a better developer?",
+    image: { src: ImageSrc, alt: "blog post" },
+    description:
+      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius, libero eaque aut odio voluptatem magnam reprehenderit",
+    date: "Aug 18",
+    href: "#"
+  },
+  {
+    title: "Can coffee make you a better developer?",
+    image: { src: ImageSrc, alt: "blog post" },
+    description:
+      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius, libero eaque aut odio voluptatem magnam reprehenderit",
+    date: "Aug 18",
+    href: "#"
+  },
+  {
+    title: "Can coffee make you a better developer?",
+    image: { src: ImageSrc, alt: "blog post" },
+    description:
+      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius, libero eaque aut odio voluptatem magnam reprehenderit",
+    date: "Aug 18",
+    href: "#"
+  }
+];
+---
+
+<div id={id} class="section">
+  <SectionTitle title="Blogs" />
+  <p class="description" data-animation="fade-in-down">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae quam dicta
+    dignissimos, quibusdam itaque facere ipsum aperiam assumenda, nisi ut modi
+    ducimus nulla quo earum quod aut dolor recusandae. Facilis!
+  </p>
+  <div class="blogs">
+    {
+      blogs.map((blog) => (
+        <BlogCard
+          title={blog.title}
+          image={blog.image}
+          description={blog.description}
+          date={blog.date}
+          href={blog.href}
+        />
+      ))
+    }
+  </div>
+  <ViewMore title="All blogs" href="#" />
+</div>
+
+<style lang="scss">
+  .section {
+    padding: 1rem 2rem 0 2rem;
+    background-color: $gray-50;
+    .description {
+      animation-duration: 0.6s;
+      animation-delay: 0.2s;
+      text-align: center;
+      margin: auto;
+      padding: 0 2rem 5rem 2rem;
+      max-width: 46.875rem;
+      color: $slate-600;
+      @include media("md") {
+        width: fit-content;
+        padding: 0 1rem 4rem 1rem;
+      }
+      @include media("sm") {
+        padding: 0 0 2.5rem 0;
+      }
+    }
+    @include media("sm") {
+      padding: 1rem 1rem 0 1rem;
+    }
+  }
+  .blogs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0 2rem;
+    gap: 2rem;
+    @include media("xl", "~md") {
+      gap: 6rem 5rem;
+    }
+    @include media("md") {
+      gap: 5rem;
+      padding: 0;
+    }
+  }
+</style>

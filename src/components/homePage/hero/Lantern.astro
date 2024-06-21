@@ -1,16 +1,16 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
 <div class="lantern__handle--hidden">
-  <span class="text-white">
-    View My Work
-    <!-- <IoMdArrowRoundForward size={25} class='inline ml-1 group-hover:rotate-90 duration-300'/> -->
-  </span>
+  <span> View My Work </span>
+  <Icon name="arrow-right" height={25} width={25} />
 </div>
 <div class="container">
   <div class="lantern">
     <div class="lantern__handle">
-      <span class="text-white">
-        View My Work
-        <!-- <IoMdArrowRoundForward size={25} class='inline ml-1 group-hover:rotate-90 duration-300'/> -->
-      </span>
+      <span> View My Work </span>
+      <Icon name="arrow-right" height={25} width={25} />
     </div>
     <div class="lantern__inner">
       <div class="lantern__chain"></div>
@@ -281,9 +281,23 @@
     position: absolute;
     transform: translateX(-50%);
     z-index: 1;
+    &__handle,
+    &__handle--hidden {
+      display: flex;
+      color: white;
+      column-gap: 0.5rem;
+      justify-content: center;
+      align-items: center;
+      [data-icon="arrow-right"] {
+        transition: transform 0.25s linear;
+      }
+      &:hover {
+        [data-icon="arrow-right"] {
+          transform: rotate(90deg);
+        }
+      }
+    }
     &__handle {
-      text-align: center;
-      padding-top: 1.25rem;
       height: 4.375rem;
       width: 14.375rem;
       border: 6px solid #263238;
@@ -296,11 +310,10 @@
         height: 4.375rem;
         width: 14.375rem;
         border-radius: 8px;
-        padding-top: 1.25rem;
         margin: auto;
         cursor: pointer;
         @media screen and (max-height: 653px), screen and (max-width: 350px) {
-          display: block;
+          display: flex;
         }
       }
     }

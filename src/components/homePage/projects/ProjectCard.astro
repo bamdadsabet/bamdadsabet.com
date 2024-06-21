@@ -1,57 +1,43 @@
 ---
-interface Props {
-  title: string
-  description: string
-  technologies: string[]
-  isEven?: boolean
+interface Props extends ISectionContent {
+  technologies: string[];
+  // FIXME
   image: {
-    src: string
-    alt: string
-  }
+    src: string;
+    alt: string;
+  };
   links: {
-    github: string
-    liveDemo: string
-  }
+    github: string;
+    liveDemo: string;
+  };
 }
 
-const {
-  title,
-  description,
-  technologies,
-  image,
-  links,
-  isEven = false
-} = Astro.props
+const { title, description, technologies, image, links } = Astro.props;
 ---
 
-<section class:list={['card', {'card--even': isEven}]}>
-    <section class='content'>
-        <h1>{ title }</h1>
-        <p>{ description }</p>
-        <div class="tag-set">
-          {
-            technologies.map(technology => <span class="tag">#{ technology }</span>)
-          }
-        </div>
-        <div class='button__container'>
-          <a
-            href={links.liveDemo} 
-            class='button'
-          >
-            View Project
-          </a>
-          <a 
-            href={links.github}
-            class="button"
-          >
-            github 
-          </a>
-        </div>
-    </section>
-    <img 
-      src={image.src} 
-      alt={image.alt}  
-    />
+<section class="card">
+  <section class="content">
+    <h1 data-animation="fade-in-down">{title}</h1>
+    <p data-animation="fade-in-down">{description}</p>
+    <div class="tag-set">
+      {
+        technologies.map((technology) => (
+          <span class="tag" data-animation="zoom-in">
+            #{technology}
+          </span>
+        ))
+      }
+    </div>
+    <div class="button__container">
+      <a href={links.liveDemo} class="button" data-animation="zoom-in">
+        View Project
+      </a>
+      <a href={links.github} class="button" data-animation="zoom-in">
+        github
+      </a>
+    </div>
+  </section>
+  <img src={image.src} alt={image.alt} data-animation="zoom-in" />
 </section>
 
 <style lang="scss">
@@ -62,54 +48,70 @@ const {
     margin-bottom: 16rem;
     align-items: center;
     column-gap: 6rem;
-    &--even {
+    &:nth-of-type(odd) {
       flex-direction: row-reverse;
+      .button {
+        &:first-of-type {
+          animation-delay: 0.3s;
+        }
+        &:last-of-type {
+          animation-delay: 0.5s;
+        }
+      }
+      .tag {
+        @for $i from 1 through 3 {
+          &:nth-child(#{$i}) {
+            animation-delay: #{(0.2s + ($i * 0.15s))};
+          }
+        }
+      }
     }
     @include media("lg") {
       width: 100%;
       margin-bottom: 6rem;
       max-width: none;
-      flex-direction: column-reverse;
+      flex-direction: column-reverse !important;
     }
     @include media("sm") {
       padding: 0 1rem;
     }
-
   }
   .content {
     max-width: 34.375rem;
     width: 50%;
     h1 {
+      animation-duration: 1.2s;
       margin-bottom: 1rem;
       font-size: 1.875rem;
       line-height: 2.25rem;
-      color: #475569;
+      color: $slate-600;
       @include media("lg") {
         font-size: 1.5rem;
         line-height: 2rem;
-        margin-bottom: 0.5rem
+        margin-bottom: 0.5rem;
       }
     }
     p {
+      animation-duration: 1.2s;
       margin-bottom: 2rem;
-      color: #64748b;
+      color: $slate-500;
       @include media("lg") {
         padding-left: 0.4rem;
         font-size: 0.875rem;
         line-height: 1.25rem;
       }
       @include media("lg", "~md") {
-        margin-bottom:1.5rem;
+        margin-bottom: 1.5rem;
       }
       @include media("md") {
-        margin-bottom:1.25rem;
+        margin-bottom: 1.25rem;
       }
     }
     @include media("lg", "~md") {
       width: 90%;
       max-width: 43.75rem;
     }
-    @include media('md') {
+    @include media("md") {
       width: 100%;
       max-width: none;
     }
@@ -123,31 +125,41 @@ const {
     padding-bottom: 0.5rem;
     margin-bottom: 2rem;
     @include media("lg", "~md") {
-      margin-bottom: 1.5rem
+      margin-bottom: 1.5rem;
     }
     @include media("md") {
-      margin-bottom:1.25rem;
+      margin-bottom: 1.25rem;
     }
   }
   .tag-set, h1 {
     @include media("lg") {
-      padding-left: 0.125rem
+      padding-left: 0.125rem;
     }
   }
   .tag {
+    animation-duration: 0.8s;
     display: inline-block;
     border-radius: 500px;
     padding: 0.25rem 0.75rem;
     font-size: 0.875rem;
     font-weight: 600;
-    color: #64748b;
+    color: $slate-500;
     background-color: #e5e7eb;
+    @for $i from 1 through 3 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{(0.2s + ((3 - $i) * 0.15s))};
+        @include media("lg") {
+          animation-delay: #{(0.2s + ($i * 0.15s))};
+        }
+      }
+    }
     @include media("lg") {
       font-size: 0.75rem;
       line-height: 1rem;
     }
   }
   .button {
+    animation-duration: 0.8s;
     cursor: pointer;
     width: 12.5rem;
     height: 3.75rem;
@@ -169,13 +181,27 @@ const {
         row-gap: 1rem;
       }
     }
-    @include media ("~lg") {
-      border: 2px solid #9ca3af;
-      transition: color 300ms 100ms, border 300ms 100ms;
+    &:first-of-type {
+      animation-delay: 0.5s;
+      @include media("lg") {
+        animation-delay: 0.3s;
+      }
+    }
+    &:last-of-type {
+      animation-delay: 0.3s;
+      @include media("lg") {
+        animation-delay: 0.5s;
+      }
+    }
+    @include media("~lg") {
+      border: 2px solid $gray-400;
+      transition:
+        color 0.3s 0.1s,
+        border 0.3s 0.1s;
       overflow: hidden;
-      color: #64748b;
+      color: $slate-500;
       &:before {
-        content: '';
+        content: "";
         width: 25rem;
         height: 25rem;
         position: absolute;
@@ -187,21 +213,22 @@ const {
       }
       &:hover {
         color: #e5e7eb;
-        border-color: #1e293b;
+        border-color: $slate-800;
         &:before {
-          box-shadow: inset 0 0 0 200px #1e293b;
+          box-shadow: inset 0 0 0 200px $slate-800;
         }
       }
     }
-    @include media ("lg") {
-      background-color: #1e293b;
-      border-color: #1e293b; 
-      color: #e5e7eb;
+    @include media("lg") {
+      background-color: $slate-800;
+      border-color: $slate-800;
+      color: $gray-200;
       width: 100%;
       font-size: 0.875rem;
     }
   }
   img {
+    animation-duration: 1s;
     border-radius: 0.5rem;
     max-width: 34.375rem;
     width: 50%;
@@ -209,12 +236,12 @@ const {
     @include media("lg", "~md") {
       width: 90%;
       max-width: 43.75rem;
-      margin-bottom: 1.5rem
+      margin-bottom: 1.5rem;
     }
     @include media("md") {
       width: 100%;
       max-width: none;
-      margin-bottom: 1.25rem
+      margin-bottom: 1.25rem;
     }
   }
 </style>

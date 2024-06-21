@@ -1,0 +1,89 @@
+---
+interface Props {
+  skillName: string;
+  percentage: number;
+  barColors: {
+    skillName: string;
+    progressBar: string;
+  };
+  animationDelay?: string;
+}
+
+const { skillName, percentage, barColors, animationDelay = '0s' } = Astro.props;
+---
+
+<div class="bar__container" data-animation="fade-in-down">
+  <div class="skill-name">
+    {skillName}
+  </div>
+  <div class="bar">
+    <div class="progression">
+      <span class="percentage">{percentage} %</span>
+    </div>
+  </div>
+</div>
+<style
+  lang="scss"
+  define:vars={{
+    percentage,
+    animationDelay,
+    progressBarColor: barColors.progressBar,
+    skillNameColor: barColors.skillName
+  }}
+>
+  @keyframes progression {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: calc(var(--percentage) * 1%);
+    }
+  }
+  .bar {
+    width: 100%;
+    background-color: #f4f4f5;
+    position: relative;
+    display: flex;
+    &__container {
+      display: flex;
+      animation-duration: 0.6s;
+      animation-delay: var(--animationDelay);
+    }
+  }
+  .skill-name {
+    width: 10rem;
+    display: inline-block;
+    color: white;
+    background-color: var(--skillNameColor);
+    text-align: center;
+    @include media("lg", "~md") {
+      width: 8rem;
+    }
+    @include media("md", "~sm") {
+      width: 7rem;
+      font-size: 0.875rem;
+      line-height: 1.5rem;
+    }
+    @include media("sm") {
+      width: 6.5rem;
+      font-size: 0.8rem;
+      line-height: 1.4rem;
+    }
+  }
+  .progression {
+    background-color: var(--progressBarColor);
+    display: inline-block;
+    width: 0;
+    animation: progression 1s ease-in-out 1.2s forwards;
+  }
+  .percentage {
+    position: absolute;
+    right: 0.5rem;
+    top: 0;
+    color: #292524;
+    mix-blend-mode: difference;
+    @include media("sm") {
+      display: none;
+    }
+  }
+</style>

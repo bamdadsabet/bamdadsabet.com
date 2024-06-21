@@ -58,7 +58,7 @@ const projects = [
 
 <div id={id}>
   <SectionTitle title="Projects" />
-  <p class="description">
+  <p class="description" data-animation="fade-in-down">
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae quam dicta
     dignissimos, quibusdam itaque facere ipsum aperiam assumenda, nisi ut modi
     ducimus nulla quo earum quod aut dolor recusandae. Facilis!
@@ -72,7 +72,6 @@ const projects = [
         image={project.image}
         technologies={project.technologies}
         links={project.links}
-        isEven={index % 2 === 0}
       />
     ))
   }
@@ -81,11 +80,13 @@ const projects = [
 
 <style lang="scss">
   .description {
+    animation-duration: 0.6s;
+    animation-delay: 0.2s;
     text-align: center;
     margin: auto;
     padding: 0 2rem 5rem 2rem;
-    max-width: 750px;
-    color: #475569;
+    max-width: 46.875rem;
+    color: $slate-600;
     @include media("md") {
       width: fit-content;
       padding: 0 1rem 4rem 1rem;
