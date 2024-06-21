@@ -1,6 +1,5 @@
 ---
-interface Props {
-  title: string;
+interface Props extends ISectionContent {
   animationReverse?: boolean;
 }
 
@@ -11,7 +10,7 @@ const { title, animationReverse = false } = Astro.props;
   <h1 data-animation={animationReverse ? "fade-in-right" : "fade-in-left"}>
     {title}
   </h1>
-  <hr data-animation={animationReverse ? " fade-in-left" : "fade-in-right"} />
+  <hr data-animation={animationReverse ? "fade-in-left" : "fade-in-right"} />
 </div>
 
 <style lang="scss">
