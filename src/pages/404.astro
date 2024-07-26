@@ -1,0 +1,231 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import { Icon } from "astro-icon/components";
+// #FIXME GO BACK link 
+// #FIXME compleate other links when theire page is implimented 
+const redirectLinks = [
+  {
+    icon: 'arrow-left',
+    href: '/',
+    tooltipText: 'Back'
+  },
+  {
+    icon: 'home',
+    href: '/',
+    tooltipText: 'Home'
+  },
+  {
+    icon: 'code',
+    href: '/',
+    tooltipText: 'Projects'
+  },
+  {
+    icon: 'blog',
+    href: '/',
+    tooltipText: 'Blogs'
+  }
+]
+---
+
+<PageLayout title="Not Found" metaDescription="Not Found">
+  <svg 
+  class="hexagon" viewBox="0 0 837 1045" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <path d="M353,9 L626.664028,170 L626.664028,487 L353,642 L79.3359724,487 L79.3359724,170 L353,9 Z" id="Polygon--1" stroke="#007FB2" stroke-width="6"></path>
+    <path d="M78.5,529 L147,569.186414 L147,648.311216 L78.5,687 L10,648.311216 L10,569.186414 L78.5,529 Z" id="Polygon--2" stroke="#EF4A5B" stroke-width="6"></path>
+    <path d="M773,186 L827,217.538705 L827,279.636651 L773,310 L719,279.636651 L719,217.538705 L773,186 Z" id="Polygon--3" stroke="#795D9C" stroke-width="6"></path>
+    <path d="M639,529 L773,607.846761 L773,763.091627 L639,839 L505,763.091627 L505,607.846761 L639,529 Z" id="Polygon--4" stroke="#F2773F" stroke-width="6"></path>
+    <path d="M281,801 L383,861.025276 L383,979.21169 L281,1037 L179,979.21169 L179,861.025276 L281,801 Z" id="Polygon--5" stroke="#36B455" stroke-width="6"></path>
+  </g>
+  </svg>
+  <section class="content">
+    <div class="message-box">
+      <h1>404</h1>
+    <span>Page Not Found</span>
+    </div>
+    <div class="message-box">
+      {
+        redirectLinks.map(redirectLink => 
+          <a href={redirectLink.href}>
+            <span class="tooltip">{redirectLink.tooltipText}</span>
+            <Icon name={redirectLink.icon} height={25} width={25} />
+          </a>
+        )
+      }
+    </div>
+  </section>
+</PageLayout>
+
+<style lang="scss">
+  // #FIXME alighnement in mobile view 
+  // #FIXME refactore style to minimize code 
+  @keyframes float {
+    100% {
+      transform: translateY(2.2rem);
+    }
+  }
+  body {
+    background-color: $navbar-bg;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    flex-wrap: wrap;
+    column-gap:  8.5rem;
+    .hexagon {
+      width: 380px;
+      height: 500px;
+      @include media("lg") {
+        position: absolute;
+        z-index: -1;
+        opacity: 0.6;
+        width: 90%;
+        height: 100%;
+      }
+    }
+    #Polygon--1 , #Polygon--2 , #Polygon--3 , #Polygon--4 , #Polygon--4, #Polygon--5 {
+      animation: float 2s infinite ease-in-out alternate;
+    }
+    #Polygon--2 {
+      animation-delay: .2s; 
+    }
+    #Polygon--3 {
+      animation-delay: .4s; 
+    }
+    #Polygon--4 {
+      animation-delay: .6s; 
+    }
+    #Polygon--5 {
+      animation-delay: .8s; 
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+      row-gap: 3rem;
+      .message-box {
+        display: flex;
+        align-items: center;
+        color: white;
+        font-weight: 300;
+        h1 {
+          font-size: 120px;
+          line-height: 46px;
+          border-right: 2px solid white;
+          padding-right: 1.5rem;
+          margin-right: 1.5rem;
+          @include media("sm") {
+            border: none;
+            margin-right: 0;
+            padding-right: 0;
+          }
+        }
+        span {
+          font-size: 18px;
+          @include media("sm") {
+            color: gray
+          }
+        }
+        a {
+          transition: all ease-in-out 0.1s;
+          position: relative;
+          height: 25px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+          transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+          .tooltip {
+            position: absolute;
+            top: 0;
+            font-size: 0.8rem;
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 0.19rem;
+            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            &::before {
+              position: absolute;
+              content: "";
+              height: 8px;
+              width: 8px;
+              bottom: -3px;
+              left: 50%;
+              transform: translate(-50%) rotate(45deg);
+              transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            }
+            @include media("md") {
+              display: none;
+            }
+          }
+          &:hover {
+            transform: scale(1.1);
+            .tooltip {
+              top: -2rem;
+              opacity: 0.8;
+              visibility: visible;
+              pointer-events: auto;
+            }
+          }
+          &:first-of-type:hover {
+            color: #007FB2;
+            .tooltip {
+              background-color: #007FB2;
+              &::before {
+                background-color: #007FB2;
+              }
+            }
+          }
+          &:nth-of-type(2):hover {
+            color: #F2773F;
+            .tooltip {
+              background-color: #F2773F;
+              &::before {
+                background-color: #F2773F;
+              }
+            }
+          }
+          &:nth-of-type(3):hover {
+            color: #795D9C;
+            .tooltip {
+              background-color: #795D9C;
+              &::before {
+                background-color: #795D9C;
+              }
+            }
+          }
+          &:last-of-type:hover {
+            color: #36B455;
+            .tooltip {
+              background-color: #36B455;
+              &::before {
+                background-color: #36B455;
+              }
+            }
+          }
+        }
+        &:last-of-type {
+          width: 350px;
+          top: calc(50% + 100px);
+          gap: 35px;
+          justify-content: center;
+        }
+        @include media("sm") {
+          &:first-of-type {
+            flex-direction: column;
+            row-gap: 2rem
+          }
+        }
+      }
+      @include media("md", "~sm") {
+        row-gap: 4rem
+      }
+      @include media("sm") {
+        row-gap: 1rem
+      }
+    }
+  }
+</style>
