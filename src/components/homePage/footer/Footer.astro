@@ -75,9 +75,7 @@ const essentialsContacts = [
 </svg>
 
 <style lang="scss" is:global>
-
   $gray-700: #374151;
-  
 
   @keyframes bubble-size {
     0%,
@@ -122,7 +120,7 @@ const essentialsContacts = [
       left: 0;
       right: 0;
       height: 2.25rem;
-      background-color: $footer-background-color;
+      background-color: $footer-bg;
       overflow-x: clip;
       filter: url("#blob");
       @include media("md") {
@@ -133,7 +131,7 @@ const essentialsContacts = [
       position: absolute;
       border-radius: 50%;
       left: var(--position, 50%);
-      background-color: $footer-background-color;
+      background-color: $footer-bg;
       animation:
         bubble-size var(--time, 4s) ease-in infinite var(--delay),
         bubble-move var(--time, 4s) ease-in infinite var(--delay);
@@ -148,7 +146,7 @@ const essentialsContacts = [
       flex-direction: row;
       justify-content: space-between;
       flex-direction: row;
-      background-color: $footer-background-color;
+      background-color: $footer-bg;
       svg {
         color: #e2e8f0;
       }
