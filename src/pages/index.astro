@@ -1,16 +1,62 @@
 ---
+import { SEO } from "astro-seo";
 import PageLayout from "@layouts/PageLayout.astro";
 import Hero from "@components/homePage/hero/Hero.astro";
-import Footer from "@components/homePage/footer/Footer.astro";
 import WorkExperience from "@components/homePage/workExperience/WorkExperience.astro";
 import Projects from "@components/homePage/projects/Projects.astro";
 import About from "@components/homePage/about/About.astro";
 import Navbar from "@components/navbar/Navbar.astro";
 import Thanks from "@components/homePage/Thanks.astro";
 import Blogs from "@components/homePage/blogs/Blogs.astro";
+import Footer from "@components/homePage/footer/Footer.astro";
 ---
 
 <PageLayout title="Bamdad Sabet" metaDescription="Bamdad Sabet CV">
+  <SEO
+    slot="header"
+    title="Bamdad Sabet"
+    canonical="bamdadsabet.com"
+    description=""
+    openGraph={{
+      basic: {
+        title: "Bamdad Sabet",
+        image: "",
+        url: "bamdadsabet.com",
+        type: "portfolio"
+      },
+      optional: {
+        description:  "I’m Bamdad Sabet, a Senior Front-End Engineer experienced in building cutting-edge web applications. Specializing in Vue.js, React, TypeScript. Explore my portfolio to see how I create impactful, user-centric web experiences.",
+        locale: "en_US",
+        siteName: "Bamdad Sabet"
+      }
+    }}
+    twitter={{
+      card: "summary_large_image",
+      title: "Bamdad Sabet",
+      description: "I’m Bamdad Sabet, a Senior Front-End Engineer experienced in building cutting-edge web applications. Specializing in Vue.js, React, TypeScript. Explore my portfolio to see how I create impactful, user-centric web experiences.",
+      image: "",
+      imageAlt: "Bamdad Sabet's CV",
+      site: "bamdadsabet.com",
+      creator: "Bamdad Sabet"
+    }}
+    extend={{
+      link: [
+        {
+          rel: "sitemap",
+          type: "application/xml",
+          title: "Sitemap",
+          href: "/sitemap.xml"
+        }
+      ],
+      meta: [
+        {
+          name: "keywords",
+          content: "Bamdad Sabet, Front-End Engineer, Front-End Developer, Vue.js Developer, React Developer, Web Developer, Software Engineer, Front-End Architecture, Vue, Astro, React, TypeScript, Software Engineer, Front-End Specialist"
+        }
+      ],
+
+    }} 
+  />
   <main>
     <!-- #FIXME write them in a higher order functions  -->
     <Hero id="home-section" />
@@ -18,7 +64,7 @@ import Blogs from "@components/homePage/blogs/Blogs.astro";
     <About id="about-section" />
     <WorkExperience id="experiences-section" />
     <Projects id="projects-section" />
-    <Blogs id="blog-section" />
+    <!-- <Blogs id="blog-section" /> -->
     <Thanks id="contact-section" />
   </main>
   <Footer />
