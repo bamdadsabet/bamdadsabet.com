@@ -2,6 +2,8 @@
 import ProjectCard from "./ProjectCard.astro";
 import SectionTitle from "../SectionTitle.astro";
 import ViewMore from "../ViewMore.astro";
+import FabiziImage from "@images/projects/fabizi.png";
+import LinkToMenuImage from "@images/projects/link-to-menu.png";
 
 // #FIXME
 interface Props {
@@ -12,45 +14,42 @@ const { id } = Astro.props;
 
 const projects = [
   {
-    title: "Online Cafe",
+    title: "Fabizi | RMS",
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo temporibus velit ipsa et quidem repellat aut vitae, incidunt laboriosam voluptates eveniet odio officiis veritatis libero eius molestiae alias nemo ea.",
+      "As a key contributor, I played a major role in modernizing its architecture by introducing a domain-driven design and replacing the state management with global composables. These changes cut the development-to-production cycle by 50% and reduced bugs by 30%, making the app more reliable and developer-friendly.",
     image: {
-      src: "https://tamalsen.dev/wp-content/uploads/2021/10/walkerip-com-poster.jpg",
-      alt: "Online Cafe"
+      src: FabiziImage,
+      alt: "Fabizi | RMS"
     },
-    technologies: ["Vue", "Material UI", "Vuex"],
+    technologies: ["Vue", "Vuetify", "Nuxt", "VueQuery"],
     links: {
-      github: "#",
-      liveDemo: "#"
+      liveDemo: "https://www.fabizi.com/"
     }
   },
   {
-    title: "Online Cafe",
+    title: "Link to Menu",
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo temporibus velit ipsa et quidem repellat aut vitae, incidunt laboriosam voluptates eveniet odio officiis veritatis libero eius molestiae alias nemo ea.",
+      "I contributed to the development of Link to Menu, a link tree-like app designed for restaurants. By using Strapi as a headless CMS and Astro as the main stack, we built the service in under a week, achieving excellent performance, scalability, and an SEO-friendly website.",
     image: {
-      src: "https://tamalsen.dev/wp-content/uploads/2021/10/walkerip-com-poster.jpg",
-      alt: "Online Cafe"
+      src: LinkToMenuImage,
+      alt: "Link to Menu"
     },
-    technologies: ["Vue", "Material UI", "Vuex"],
+    technologies: ["TypeScript", "Astro", "Strapi", "Vue"],
     links: {
-      github: "#",
-      liveDemo: "#"
+      liveDemo: "https://linkto.menu/"
     }
   },
   {
-    title: "Online Cafe",
+    title: "My Own Personal Portfolio",
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo temporibus velit ipsa et quidem repellat aut vitae, incidunt laboriosam voluptates eveniet odio officiis veritatis libero eius molestiae alias nemo ea.",
+      "Yes, I’m also including this website here! The code is available on my GitHub, so you can take a look at how everything is built. Feel free to explore, and I’d love to hear any feedback you have. thanks :)",
     image: {
-      src: "https://tamalsen.dev/wp-content/uploads/2021/10/walkerip-com-poster.jpg",
-      alt: "Online Cafe"
+      src: LinkToMenuImage,
+      alt: "Personal CV website"
     },
-    technologies: ["Vue", "Material UI", "Vuex"],
+    technologies: ["Astro", "TypeScript", "HTML", "SCSS"],
     links: {
-      github: "#",
-      liveDemo: "#"
+      github: "https://github.com/bamdadsabet/bamdadsabet.com",
     }
   }
 ];
@@ -59,13 +58,11 @@ const projects = [
 <div id={id}>
   <SectionTitle title="Projects" />
   <p class="description" data-animation="fade-in-down">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae quam dicta
-    dignissimos, quibusdam itaque facere ipsum aperiam assumenda, nisi ut modi
-    ducimus nulla quo earum quod aut dolor recusandae. Facilis!
+    This is a collection of personal projects and collaborative work that I’ve contributed to as part of a team. Each project highlights different aspects of web development
   </p>
 
   {
-    projects.map((project, index) => (
+    projects.map((project) => (
       <ProjectCard
         title={project.title}
         description={project.description}
@@ -75,7 +72,7 @@ const projects = [
       />
     ))
   }
-  <ViewMore title="View All Projects" href="#" />
+  <!-- <ViewMore title="View My Github" href="https://github.com/bamdadsabet" /> -->
 </div>
 
 <style lang="scss">

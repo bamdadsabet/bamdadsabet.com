@@ -13,7 +13,7 @@ const socialMedias = [
   // FIXME change it to twiter
   {
     logo: "instagram",
-    href: "#"
+    href: "https://instagram.com/bamdadsabet"
   }
 ];
 const essentialsContacts = [
@@ -36,7 +36,7 @@ const essentialsContacts = [
     <div class="footer__social-media">
       {
         socialMedias.map((socialMedia) => (
-          <a href={socialMedia.href}>
+          <a rel="noopener noreferrer nofollow" target="_blank" href={socialMedia.href}>
             <Icon name={socialMedia.logo} height={24} width={24} />
           </a>
         ))

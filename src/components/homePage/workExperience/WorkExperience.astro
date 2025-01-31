@@ -6,6 +6,7 @@ import yektanet from "@images/workExperience/yektanet.png";
 import fiverrLogo from "@images/workExperience/fiverr.png";
 import SectionTitle from "@components/homePage/SectionTitle.astro";
 import ViewMore from "@components/homePage/ViewMore.astro";
+import downloadableCV from "@asset/Bamdad-Sabet-CV.pdf";
 
 // #FIXME
 interface Props {
@@ -16,34 +17,34 @@ const { id } = Astro.props;
 
 const experienceContents = [
   {
-    jobTitle: "Senior Front-End Developer",
-    companyName: "Supnex",
+    jobTitle: "Senior Front-End Engineer",
+    companyName: "Fabizi",
     companyDescription:
       "Amadehlaziz is one of the biggest FMCG enterprises in Iran With well-known brands.",
     duration: "2022-NOW",
-    companyLogo: { src: SupnexLogo, alt: "Supnex" },
+    companyLogo: { src: SupnexLogo, alt: "Fabizi" },
     hexRGBColor: "251, 146, 60",
-    href: "#"
+    href: "https://linkedin.com/in/bamdad-sabet-946755200/"
   },
   {
-    jobTitle: "Senior Software Developer",
+    jobTitle: "Software Engineer",
     companyName: "Amadeh Laziz",
     companyDescription:
       "Amadehlaziz is one of the biggest FMCG enterprises in Iran With well-known brands.",
     duration: "2021-2022",
     companyLogo: { src: amadehlazizLogo, alt: "Amadeh Laziz" },
     hexRGBColor: "255, 167, 5",
-    href: "#"
+    href: "https://linkedin.com/in/bamdad-sabet-946755200/"
   },
   {
-    jobTitle: "Front-End Developer",
+    jobTitle: "Junior Front-End Developer",
     companyName: "Yektanet",
     companyDescription:
       "Yektanet is the biggest digital marketing agency in Iran.",
     duration: "2020-2021",
     companyLogo: { src: yektanet, alt: "Yektanet" },
     hexRGBColor: "251, 146, 60",
-    href: "#"
+    href: "https://linkedin.com/in/bamdad-sabet-946755200/"
   },
   {
     jobTitle: "Freelancer",
@@ -62,26 +63,26 @@ const experienceContents = [
   <SectionTitle title="Work Experience" />
   <div class="time-line" data-animation="fade-in-up-long">
     {
-      experienceContents.map((conetent, index) => (
+      experienceContents.map((content, index) => (
         <WorkExperienceCard
-          jobTitle={conetent.jobTitle}
-          companyName={conetent.companyName}
-          companyDescription={conetent.companyDescription}
-          duration={conetent.duration}
-          companyLogo={conetent.companyLogo}
-          hexRGBColor={conetent.hexRGBColor}
-          href="#"
+          jobTitle={content.jobTitle}
+          companyName={content.companyName}
+          companyDescription={content.companyDescription}
+          duration={content.duration}
+          companyLogo={content.companyLogo}
+          hexRGBColor={content.hexRGBColor}
+          href={content.href}
           animationReversed={index % 2 === 0}
         />
       ))
     }
   </div>
-  <a class="download-cv-button__container" href="#">
+  <a class="download-cv-button__container" target="_blank" href={downloadableCV}>
     <div class="download-cv-button">
       <span>Download My CV</span>
     </div>
   </a>
-  <ViewMore title="View My LinkedIn Profile" href="#" />
+  <ViewMore title="View My LinkedIn Profile" href="https://linkedin.com/in/bamdad-sabet-946755200/" />
 </div>
 
 <style lang="scss">

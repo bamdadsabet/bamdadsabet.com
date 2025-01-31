@@ -7,7 +7,7 @@ interface Props {
 const { title, href } = Astro.props;
 ---
 
-<a class="view-more" href={href}>{title}</a>
+<a class="view-more" rel="noopener noreferrer nofollow" target="_blank" href={href}>{title}</a>
 
 <style>
   .view-more {

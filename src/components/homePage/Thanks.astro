@@ -1,19 +1,7 @@
 ---
 import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
 import ThanksImage from "@asset/images/thanks.png";
-
-// FIXME add real links later
-// FIXME can have a global type
-const linkButtons = [
-  {
-    text: "Projects",
-    href: "#"
-  },
-  {
-    text: "Blogs",
-    href: "#"
-  }
-];
 
 // #FIXME
 interface Props {
@@ -27,33 +15,30 @@ const { id } = Astro.props;
   <section class="thanks__content">
     <h1>Thank You For Visiting My Website</h1>
     <p>
-      Thank you very much for scrolling throw the end, Ive put a lots of effort
-      in creating and designing the website.
+      Thanks so much for scrolling all the way to the end! I’ve put a lot of effort into creating and designing this website, and it would mean a lot if you shared it with your friends.
       <br />
-      It would make me happy if you share this with your friends.
+      You can find my contact info in the footer
       <br />
-      Also my contact info is in the footer, i rally like to
-      <br />
-      BTW if you want to explore more:
+      I’d love to hear from you!
     </p>
     <div class="button__container">
-      {
-        linkButtons.map((button) => (
-          <a class="button" href={button.href}>
+          <button class="button">
             <ul>
-              <>
                 <li />
                 <li />
                 <li />
                 <li />
                 <li />
                 <li />
-              </>
+                <li />
+                <li />
+                <li />
             </ul>
-            <span>{button.text}</span>
-          </a>
-        ))
-      }
+            <span>
+              <Icon name="share" height={20} width={20} />
+              Share
+            </span>
+          </button>
     </div>
   </section>
   <Image alt="thanks" src={ThanksImage} height="500" width="500" />
@@ -164,7 +149,7 @@ const { id } = Astro.props;
     color: #fff;
     display: inline-block;
     font-size: 1.125rem;
-    width: 12.5rem;
+    width: 18rem;
     height: 3em;
     position: relative;
     display: flex;
@@ -183,6 +168,10 @@ const { id } = Astro.props;
       span {
         display: block;
         position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: 0.25rem;
       }
       &:hover ul {
         transform: translateY(-81%);
@@ -190,7 +179,7 @@ const { id } = Astro.props;
       }
       ul {
         position: absolute;
-        width: 12em;
+        width: 100%;
         height: 6em;
         background-color: $footer-bg;
         left: 0;
@@ -228,3 +217,21 @@ const { id } = Astro.props;
     }
   }
 </style>
+
+<script>
+  const share = () => {
+    try {
+    navigator.share({
+      title: "Bamdad Sabet",
+      url: "https://bamdadsabet.com",
+    })
+  } catch (err) {
+    console.error('err', err)
+  }
+  } 
+
+  document.addEventListener("DOMContentLoaded", () => {   
+    const shareButton = document.querySelector("button.button") as HTMLButtonElement;
+    shareButton.addEventListener("click", share);
+  })
+</script>
