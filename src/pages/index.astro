@@ -16,11 +16,12 @@ import Footer from "@components/homePage/footer/Footer.astro";
     slot="header"
     title="Bamdad Sabet"
     canonical="bamdadsabet.com"
-    description=""
+    description="I’m Bamdad Sabet, a Senior Front-End Engineer experienced in building cutting-edge web applications. Specializing in Vue.js, React, TypeScript. Explore my portfolio to see how I create impactful, user-centric web experiences."
+    nofollow={false}
     openGraph={{
       basic: {
         title: "Bamdad Sabet",
-        image: "",
+        image: "/thumbnail.png",
         url: "bamdadsabet.com",
         type: "portfolio"
       },
@@ -34,7 +35,7 @@ import Footer from "@components/homePage/footer/Footer.astro";
       card: "summary_large_image",
       title: "Bamdad Sabet",
       description: "I’m Bamdad Sabet, a Senior Front-End Engineer experienced in building cutting-edge web applications. Specializing in Vue.js, React, TypeScript. Explore my portfolio to see how I create impactful, user-centric web experiences.",
-      image: "",
+      image: "/thumbnail.png",
       imageAlt: "Bamdad Sabet's CV",
       site: "bamdadsabet.com",
       creator: "Bamdad Sabet"
@@ -45,8 +46,12 @@ import Footer from "@components/homePage/footer/Footer.astro";
           rel: "sitemap",
           type: "application/xml",
           title: "Sitemap",
-          href: "/sitemap.xml"
-        }
+          href: "/sitemap-index.xml"
+        },
+        {
+          rel: "manifest",
+          href: "/manifest.json"
+        },
       ],
       meta: [
         {

@@ -3,7 +3,6 @@ import { Image } from "astro:assets";
 
 interface Props extends ISectionContent {
   technologies: string[];
-  // FIXME
   image: {
     src: ImageMetadata;
     alt: string;
@@ -31,12 +30,18 @@ const { title, description, technologies, image, links } = Astro.props;
       }
     </div>
     <div class="button__container">
-      <a href={links.liveDemo} class="button" data-animation="zoom-in">
-        View Project
-      </a>
-      <a href={links.github} class="button" data-animation="zoom-in">
-        github
-      </a>
+      {
+        links?.liveDemo &&
+        <a href={links.liveDemo} rel="noopener noreferrer nofollow" target="_blank"  class="button" data-animation="zoom-in">
+          View Project
+        </a>
+      }
+      {
+        links?.github &&
+        <a href={links.github} rel="noopener noreferrer nofollow" target="_blank"  class="button" data-animation="zoom-in">
+          github
+        </a>
+      }
     </div>
   </section>
   <Image src={image.src} alt={image.alt} data-animation="zoom-in" />
@@ -76,6 +81,7 @@ const { title, description, technologies, image, links } = Astro.props;
     }
     @include media("sm") {
       padding: 0 1rem;
+      margin-bottom: 2.75rem;
     }
   }
   .content {
@@ -130,7 +136,7 @@ const { title, description, technologies, image, links } = Astro.props;
       margin-bottom: 1.5rem;
     }
     @include media("md") {
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
     }
   }
   .tag-set, h1 {
@@ -147,7 +153,7 @@ const { title, description, technologies, image, links } = Astro.props;
     font-weight: 600;
     color: $slate-500;
     background-color: #e5e7eb;
-    @for $i from 1 through 3 {
+    @for $i from 1 through 4 {
       &:nth-child(#{$i}) {
         animation-delay: #{(0.2s + ((3 - $i) * 0.15s))};
         @include media("lg") {
@@ -162,8 +168,7 @@ const { title, description, technologies, image, links } = Astro.props;
   }
   .button {
     animation-duration: 0.8s;
-    cursor: pointer;
-    width: 12.5rem;
+    width: 16.5rem;
     height: 3.75rem;
     display: inline-block;
     position: relative;
@@ -208,7 +213,7 @@ const { title, description, technologies, image, links } = Astro.props;
         height: 25rem;
         position: absolute;
         top: -10.625rem;
-        left: -6.25rem;
+        left: -4.25rem;
         border-radius: 50%;
         z-index: -10;
         transition: box-shadow 500ms;

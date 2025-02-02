@@ -4,6 +4,7 @@ import SectionTitle from "../SectionTitle.astro";
 import ViewMore from "../ViewMore.astro";
 import FabiziImage from "@images/projects/fabizi.png";
 import LinkToMenuImage from "@images/projects/link-to-menu.png";
+import PortfolioImage from "@images/projects/portfolio.png";
 
 // #FIXME
 interface Props {
@@ -44,7 +45,7 @@ const projects = [
     description:
       "Yes, I’m also including this website here! The code is available on my GitHub, so you can take a look at how everything is built. Feel free to explore, and I’d love to hear any feedback you have. thanks :)",
     image: {
-      src: LinkToMenuImage,
+      src: PortfolioImage,
       alt: "Personal CV website"
     },
     technologies: ["Astro", "TypeScript", "HTML", "SCSS"],
@@ -72,7 +73,7 @@ const projects = [
       />
     ))
   }
-  <!-- <ViewMore title="View My Github" href="https://github.com/bamdadsabet" /> -->
+  <ViewMore title="View My Github" href="https://github.com/bamdadsabet" />
 </div>
 
 <style lang="scss">
