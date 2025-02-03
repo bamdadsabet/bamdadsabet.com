@@ -19,7 +19,7 @@ const navbarObserver = new IntersectionObserver((entries: IntersectionObserverEn
   entries.forEach((entry: IntersectionObserverEntry) => {
     if (!isScrolling && entry.isIntersecting) {
       const id = entry.target.id;
-      const nav = document.querySelector(`a[href="#${id}"]`);
+      const nav = document.querySelector(`nav a[href="#${id}"]`);
       const perviousNav = document.querySelector("a.active-nav");
       perviousNav?.classList.remove("active-nav");
       nav?.classList.add("active-nav");
