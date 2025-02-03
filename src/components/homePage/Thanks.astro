@@ -164,12 +164,15 @@ const { id } = Astro.props;
         row-gap: 1rem;
       }
     }
-      span {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        column-gap: 0.6rem;
+    span {
+      width: 100%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      column-gap: 0.6rem;
+    }
+    @include media("~md") {
       &:hover ul {
         transform: translateY(-81%);
         transform-origin: left top;
